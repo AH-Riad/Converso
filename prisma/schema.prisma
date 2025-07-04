@@ -13,3 +13,26 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       String  @id @default(cuid())
+  email    String  @unique
+  username String  @unique
+  clerkId  String  @unique
+  name     String?
+  bio      String?
+  image    String?
+  location String?
+  website  String?
+
+  //Relation
+  posts    Post[]
+  comments Comment[]
+  likes    Like[]
+
+  followers Follows[] @relation("follwing") //users who follow this user
+  following Follows[] @relation("followers") //users this user follow
+
+  notifications        Notification[] @relation("userNotifications") //notifications recieved by a user
+  notificationsCreated notification[] @relation("notificationCreator") //notifications triggered by a user
+}
