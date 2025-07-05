@@ -110,3 +110,9 @@ model Notification {
   @@index([userId, creatorId])
   @@index([userId, read]) // Added index for unread notifications
 }
+
+enum NotificationType {
+  LIKE
+  COMMENT
+  FOLLOW
+}
