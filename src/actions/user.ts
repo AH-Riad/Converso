@@ -12,13 +12,15 @@ export async function syncUser() {
 
     //check if user already exists
     const existingUSer = await prisma.user.findUnique({
-      clerkId: userId,
+      where: {
+        clerkId: userId,
+      },
     });
     if (existingUSer) {
       return existingUSer;
     }
 
-    const dbUser = await prisma.user.creat({
+    const dbUser = await prisma.user.create({
       data: {
         clerkId: userId,
         name: `${user.firstName || ""} ${user.lastName || ""}`,
