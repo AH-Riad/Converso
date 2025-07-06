@@ -8,16 +8,21 @@ export async function syncUser() {
     const { userId } = await auth();
     const user = await currentUser();
 
-    if (!user || !userId) return;
+    // console.log("syncUser debug:", { user, userId });
 
-    //check if user already exists
-    const existingUSer = await prisma.user.findUnique({
+    if (!user || !userId) {
+      // console.log("syncUser: no userId or user; exiting");
+      return;
+    }
+
+    const existingUser = await prisma.user.findUnique({
       where: {
         clerkId: userId,
       },
     });
-    if (existingUSer) {
-      return existingUSer;
+
+    if (existingUser) {
+      return existingUser;
     }
 
     const dbUser = await prisma.user.create({
@@ -33,6 +38,6 @@ export async function syncUser() {
 
     return dbUser;
   } catch (error) {
-    console.log("Error in syncUser", error);
+    console.error("Error in syncUser", error);
   }
 }
