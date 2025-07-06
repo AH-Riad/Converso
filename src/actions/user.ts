@@ -10,6 +10,14 @@ export async function syncUser() {
 
     if (!user || !userId) return;
 
+    //check if user already exists
+    const existingUSer = await prisma.user.findUnique({
+      clerkId: userId,
+    });
+    if (existingUSer) {
+      return existingUSer;
+    }
+
     const dbUser = await prisma.user.creat({
       data: {
         clerkId: userId,
