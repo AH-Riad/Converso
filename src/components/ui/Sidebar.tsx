@@ -1,12 +1,17 @@
 import { currentUser } from "@clerk/nextjs/server";
-import React from "react";
+import React, { use } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./card";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { Button } from "./button";
+import { getUserByClerkId } from "@/actions/user";
 
 async function Sidebar() {
   const authUser = await currentUser();
   if (!authUser) return <UnAuthenticatedSidebar />;
+
+  const user = await getUserByClerkId(authUser.id);
+  if (!user) return null;
+
   return <div>Sidebar</div>;
 }
 
