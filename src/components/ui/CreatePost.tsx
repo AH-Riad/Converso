@@ -14,6 +14,10 @@ function CreatePost() {
   const [imageUrl, setImageUrl] = useState<string>("");
   const [showImageUpload, setShowImageUpload] = useState<boolean>(false);
   const [isPosting, setIsPosting] = useState<boolean>(false);
+
+  const handleSubmit = async () => {
+    if (!content.trim() && !imageUrl) return;
+  };
   return (
     <Card className="mb-6">
       <CardContent className="pt-6">
