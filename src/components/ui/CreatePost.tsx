@@ -47,6 +47,13 @@ function CreatePost() {
                 Photo
               </Button>
             </div>
+            <Button
+              className="flex items-center0"
+              onClick={handleSubmit}
+              disabled={(!content.trim() && !imageUrl) || isPosting}
+            >
+              Post
+            </Button>
           </div>
         </div>
       </CardContent>
