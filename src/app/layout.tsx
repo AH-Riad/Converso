@@ -1,12 +1,5 @@
 import { type Metadata } from "next";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
@@ -49,13 +42,16 @@ export default function RootLayout({
             <div className="min-h-screen">
               <Navbar />
               <main className="py-8">
-                {/*container to center the content*/}
+                {/* Container to center the content */}
                 <div className="max-w-7xl mx-auto px-4">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <div className="hidden lg:block lg:col-span-3 ">
+                    {/* Sidebar */}
+                    <div className="hidden lg:block lg:col-span-3">
                       <Sidebar />
-                      <div className="lg:col-span-9"> {children}</div>
                     </div>
+
+                    {/* Main content */}
+                    <div className="lg:col-span-9">{children}</div>
                   </div>
                 </div>
               </main>
