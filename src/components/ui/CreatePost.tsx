@@ -21,6 +21,13 @@ function CreatePost() {
                 <AvatarImage src={user?.imageUrl || "/avatar.png"} />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
+              <Textarea
+                placeholder="What's on your mind?"
+                className="min-h[100px] resize-none border-none focus-visible:ring-0 p-0 text-base"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                disabled={isPosting}
+              />
             </div>
           </div>
         </CardContent>
