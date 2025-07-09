@@ -6,7 +6,7 @@ import { Card, CardContent } from "./card";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Textarea } from "./textarea";
 import { Button } from "./button";
-import { Ghost, ImageIcon } from "lucide-react";
+import { Ghost, ImageIcon, Loader2Icon, SendIcon } from "lucide-react";
 
 function CreatePost() {
   const { user } = useUser(); //client component cant be async that why we are using useUSer()
@@ -56,7 +56,17 @@ function CreatePost() {
               onClick={handleSubmit}
               disabled={(!content.trim() && !imageUrl) || isPosting}
             >
-              Post
+              {isPosting ? (
+                <>
+                  <Loader2Icon className="size-4 mr-2 animate-spin" />
+                  Posting...
+                </>
+              ) : (
+                <>
+                  <SendIcon className="size-4 mr-2" />
+                  Post
+                </>
+              )}
             </Button>
           </div>
         </div>
