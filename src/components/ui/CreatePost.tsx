@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { Textarea } from "./textarea";
 import { Button } from "./button";
 import { Ghost, ImageIcon, Loader2Icon, SendIcon } from "lucide-react";
+import { createPost } from "@/actions/post";
 
 function CreatePost() {
   const { user } = useUser(); //client component cant be async that why we are using useUSer()
@@ -17,6 +18,19 @@ function CreatePost() {
 
   const handleSubmit = async () => {
     if (!content.trim() && !imageUrl) return;
+    setIsPosting(true);
+    try {
+      const result = await createPost(content, imageUrl);
+      if (result.success) {
+        //reset the form
+        setContent("");
+        setImageUrl("");
+        setShowImageUpload(false);
+      }
+    } catch (error) {
+    } finally {
+      setIsPosting(false);
+    }
   };
   return (
     <Card className="mb-6">
