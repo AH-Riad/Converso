@@ -3,14 +3,15 @@
 import { useState } from "react";
 import { Button } from "./button";
 import toast, { LoaderIcon } from "react-hot-toast";
+import { toggleFollow } from "@/actions/user";
 
-function FollowButton({ userId }: { userId: number }) {
+function FollowButton({ userId }: { userId: string }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleFollow = async () => {
     setIsLoading(true);
     try {
-      //   await toggleFollow(userId);
+      await toggleFollow(userId);
       toast.success("User followed successfully");
     } catch (error) {
       toast.error("Error follwing user");
