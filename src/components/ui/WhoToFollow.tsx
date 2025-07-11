@@ -3,6 +3,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./card";
 import Link from "next/link";
 import { Avatar, AvatarImage } from "./avatar";
+import FollowButton from "./FollowButton";
 
 async function WhoToFollow() {
   const users = await getRandomUser();
@@ -40,7 +41,7 @@ async function WhoToFollow() {
                   </p>
                 </div>
               </div>
-              {/* <followButton /> */}
+              <FollowButton userId={user.id} />
             </div>
           ))}
         </div>
