@@ -1,4 +1,5 @@
 import CreatePost from "@/components/ui/CreatePost";
+import WhoToFollow from "@/components/ui/WhoToFollow";
 import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
@@ -12,7 +13,7 @@ export default async function Page() {
 
       {/* Right Sidebar: WhoToFollow */}
       <div className="hidden lg:block lg:col-span-4 sticky top-20">
-        WhoToFollow
+        <WhoToFollow />
       </div>
     </div>
   );
