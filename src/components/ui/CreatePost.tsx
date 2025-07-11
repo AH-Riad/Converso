@@ -8,6 +8,7 @@ import { Textarea } from "./textarea";
 import { Button } from "./button";
 import { Ghost, ImageIcon, Loader2Icon, SendIcon } from "lucide-react";
 import { createPost } from "@/actions/post";
+import toast from "react-hot-toast";
 
 function CreatePost() {
   const { user } = useUser(); //client component cant be async that why we are using useUSer()
@@ -26,8 +27,12 @@ function CreatePost() {
         setContent("");
         setImageUrl("");
         setShowImageUpload(false);
+
+        toast.success("Post created successfully");
       }
     } catch (error) {
+      console.log("Failed to create post");
+      toast.error("Failed to create post");
     } finally {
       setIsPosting(false);
     }
