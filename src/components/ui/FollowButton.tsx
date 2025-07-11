@@ -16,7 +16,7 @@ function FollowButton({ userId }: { userId: number }) {
       disabled={isLoading}
       className="w-20"
     >
-      {isLoading ? <LoaderIcon /> : "Follow"}
+      {isLoading ? <LoaderIcon className="size-4 animate-spin" /> : "Follow"}
     </Button>
   );
 }
