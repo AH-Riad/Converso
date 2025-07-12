@@ -1,3 +1,4 @@
+import { getPosts } from "@/actions/post";
 import CreatePost from "@/components/ui/CreatePost";
 import PostCard from "@/components/ui/PostCard";
 import WhoToFollow from "@/components/ui/WhoToFollow";
@@ -13,7 +14,7 @@ export default async function Page() {
       {/* Center: CreatePost */}
       <div className="lg:col-span-6">{user ? <CreatePost /> : null}</div>
       <div className="space-y-6">
-        {posts.map((post) => (
+        {post.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
       </div>
