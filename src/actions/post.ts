@@ -25,7 +25,7 @@ export async function createPost(content: string, imageUrl: string) {
 
 export async function getPosts() {
   try {
-    const posts = await prisma.post.findMany({
+    const post = await prisma.post.findMany({
       orderBy: {
         createdAt: "desc",
       },
@@ -62,7 +62,7 @@ export async function getPosts() {
         },
       },
     });
-    return posts;
+    return post;
   } catch (error) {
     console.log("Error in getPosts", error);
     throw new Error("Failed to fetch posts");
