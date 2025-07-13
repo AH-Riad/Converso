@@ -1,4 +1,5 @@
 import { getPosts } from "@/actions/post";
+import { getDbUserId } from "@/actions/user";
 import CreatePost from "@/components/ui/CreatePost";
 import PostCard from "@/components/ui/PostCard";
 import WhoToFollow from "@/components/ui/WhoToFollow";
@@ -8,6 +9,7 @@ import React from "react";
 export default async function Page() {
   const user = await currentUser();
   const posts = await getPosts();
+  const dbUserId = await getDbUserId();
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 px-4">
@@ -15,7 +17,7 @@ export default async function Page() {
       <div className="lg:col-span-8 space-y-6">
         {user && <CreatePost />}
         {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
+          <PostCard key={post.id} post={post} dbUserId={dbUserId} />
         ))}
       </div>
 
