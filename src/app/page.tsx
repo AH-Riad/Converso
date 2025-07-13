@@ -7,20 +7,23 @@ import React from "react";
 
 export default async function Page() {
   const user = await currentUser();
-  const post = await getPosts();
+  const posts = await getPosts();
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
-      {/* Center: CreatePost */}
-      <div className="lg:col-span-6">{user ? <CreatePost /> : null}</div>
-      <div className="space-y-6">
-        {post.map((post) => (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 px-4">
+      {/* Main Feed */}
+      <div className="lg:col-span-8 space-y-6">
+        {user && <CreatePost />}
+        {posts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
       </div>
-      {/* Right Sidebar: WhoToFollow */}
-      <div className="hidden lg:block lg:col-span-4 sticky top-20">
-        <WhoToFollow />
+
+      {/* Right Sidebar - Who to Follow */}
+      <div className="hidden lg:block lg:col-span-4">
+        <div className="sticky top-20">
+          <WhoToFollow />
+        </div>
       </div>
     </div>
   );
