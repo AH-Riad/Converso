@@ -1,6 +1,18 @@
-import React from "react";
+"use client";
+import { getPosts } from "@/actions/post";
+import { useUser } from "@clerk/nextjs";
+import React, { useState } from "react";
+type Posts = Awaited<ReturnType<typeof getPosts>>;
+type Post = Posts[number];
 
-function PostCard() {
+function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
+  const { user } = useUser();
+  const [newComment, setNewComment] = useState<string>("");
+  const [isCommenting, setIsCommenting] = useState<boolean>(false);
+  const [isLiking, setIsLiking] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [hasLiked, setHadLiked] = useState(post._count.likes);
+
   return <div>PostCard</div>;
 }
 
