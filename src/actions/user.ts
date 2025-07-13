@@ -163,5 +163,3 @@ export async function toggleFollow(targetUserId: string) {
     return { success: false, message: "Error toggling follow" };
   }
 }
-
-export async function getPosts() {}
