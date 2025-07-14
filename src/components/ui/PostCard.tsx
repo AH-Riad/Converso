@@ -2,6 +2,7 @@
 import { getPosts } from "@/actions/post";
 import { useUser } from "@clerk/nextjs";
 import React, { useState } from "react";
+
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
 
@@ -11,7 +12,8 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
   const [isCommenting, setIsCommenting] = useState<boolean>(false);
   const [isLiking, setIsLiking] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
-  const [hasLiked, setHadLiked] = useState(post._count.likes);
+  const [hasLiked, setHadLiked] = useState<boolean>(false);
+  const [optimisticLikes, setOptimisticLikes] = useState(post._count.likes);
 
   return <div>PostCard</div>;
 }
