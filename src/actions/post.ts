@@ -171,6 +171,8 @@ export async function createComment(postId: string, content: string) {
       }
       return [newComment];
     });
+    revalidatePath("/");
+    return { success: true, comment: comment };
   } catch (error) {
     console.error("Failed to create comment:", error);
     return { success: false, error: "Failed to create comment" };
