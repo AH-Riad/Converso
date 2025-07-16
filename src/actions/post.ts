@@ -101,6 +101,28 @@ export async function toggleLike(postId: string) {
           },
         },
       });
+    } else {
+      //like and create notification (only if liking someone else's post)
+      await prisma.$transaction([
+        prisma.like.create({
+          data: {
+            userId,
+            postId,
+          },
+        }),
+        ...(post.authorId !== userId
+          ? [
+              prisma.notification.create({
+                data: {
+                  type: "LIKE",
+                  userId: post.authorId,
+                  creatorId: userId,
+                  postId,
+                },
+              }),
+            ]
+          : []),
+      ]);
     }
   } catch (error) {}
 }
