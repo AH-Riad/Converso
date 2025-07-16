@@ -84,5 +84,23 @@ export async function toggleLike(postId: string) {
         },
       },
     });
+
+    const post = await prisma.post.findUnique({
+      where: { id: postId },
+      select: { authorId: true },
+    });
+
+    if (!post) throw new Error("Post not found!");
+    if (!existingLike) {
+      //unlike
+      await prisma.like.delete({
+        where: {
+          userId_postId: {
+            userId,
+            postId,
+          },
+        },
+      });
+    }
   } catch (error) {}
 }
