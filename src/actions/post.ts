@@ -124,5 +124,10 @@ export async function toggleLike(postId: string) {
           : []),
       ]);
     }
-  } catch (error) {}
+    revalidatePath("/");
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to toggle like:", error);
+    return { success: false, error: "Failed to toggle like" };
+  }
 }
