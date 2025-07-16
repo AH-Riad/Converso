@@ -68,3 +68,21 @@ export async function getPosts() {
     throw new Error("Failed to fetch posts");
   }
 }
+
+export async function toggleLike(postId: string) {
+  try {
+    const userId = await getDbUserId();
+
+    if (!userId) return;
+
+    //check  if like exists
+    const existingLike = await prisma.like.findUnique({
+      where: {
+        userId_postId: {
+          userId,
+          postId,
+        },
+      },
+    });
+  } catch (error) {}
+}
