@@ -22,7 +22,7 @@ function CreatePost() {
     setIsPosting(true);
     try {
       const result = await createPost(content, imageUrl);
-      if (result.success) {
+      if (result?.success) {
         //reset the form
         setContent("");
         setImageUrl("");
@@ -47,7 +47,7 @@ function CreatePost() {
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <Textarea
-              placeholder="What's on your mind?"
+              placeholder="Uplaod your documents here "
               className="min-h-[100px] resize-none border-none focus-visible:ring-0 p-0 text-base"
               value={content}
               onChange={(e) => setContent(e.target.value)}
@@ -67,7 +67,7 @@ function CreatePost() {
                 disabled={isPosting}
               >
                 <ImageIcon className="size-4 mr-2" />
-                Photo
+                Files
               </Button>
             </div>
             <Button
