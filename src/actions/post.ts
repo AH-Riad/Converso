@@ -198,5 +198,8 @@ export async function deletePost(postId: string) {
     });
     revalidatePath("/");
     return { success: true, message: "Post deleted successfully" };
-  } catch (error) {}
+  } catch (error) {
+    console.error("Failed to delete post", error);
+    return { success: false, error: "Failed to delete post" };
+  }
 }
