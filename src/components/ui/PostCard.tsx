@@ -8,6 +8,9 @@ import {
 import { useUser } from "@clerk/nextjs";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { Card, CardContent } from "./card";
+import { Link } from "lucide-react";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
@@ -68,7 +71,23 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
     }
   };
 
-  return <div>PostCard</div>;
+  return (
+    <Card className="overflow-hidden ">
+      <CardContent className="p-4 sm:p-6">
+        <div className="p-4 sm:p-6">
+          <div className="flex space-x-3 sm:space-x-4">
+            <Link href={`/profile/${post.author.username}`}>
+              <Avatar className="size-8 sm:w-10 sm:h-10">
+                <AvatarImage
+                  src={post.author.image ?? "/avatar.png"}
+                ></AvatarImage>
+              </Avatar>
+            </Link>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
 }
 
 export default PostCard;
