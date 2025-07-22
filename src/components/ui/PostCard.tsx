@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { Card, CardContent } from "./card";
 import { Link } from "lucide-react";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { formatDistanceToNow } from "date-fns";
 
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
@@ -89,8 +90,17 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
               <div className="flex items-start justify-between">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate">
                   <Link href={`/profile/${post.author.username}`}>
-                    @{post.author.name}
+                    {post.author.name}
                   </Link>
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <Link href={`/profile/${post.author.username}`}>
+                      @{post.author.username}
+                    </Link>
+                    <span>.</span>
+                    <span>
+                      {formatDistanceToNow(new Date(post.createdAt))} ago
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
