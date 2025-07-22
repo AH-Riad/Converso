@@ -9,9 +9,10 @@ import { useUser } from "@clerk/nextjs";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Card, CardContent } from "./card";
-import { Link } from "lucide-react";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import Link from "next/link";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { formatDistanceToNow } from "date-fns";
+import { DeleteAlertDialog } from "./DeleteAlertDialog";
 
 type Posts = Awaited<ReturnType<typeof getPosts>>;
 type Post = Posts[number];
@@ -22,7 +23,9 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
   const [isCommenting, setIsCommenting] = useState<boolean>(false);
   const [isLiking, setIsLiking] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
-  const [hasLiked, setHasLiked] = useState<boolean>(false);
+  const [hasLiked, setHasLiked] = useState<boolean>(
+    post.likes.some((like) => like.userId === dbUserId)
+  );
   const [optimisticLikes, setOptimisticLikes] = useState(post._count.likes);
 
   const handleLike = async () => {
@@ -102,7 +105,17 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                     </span>
                   </div>
                 </div>
+                {/* Check if current user is the post author */}
+                {dbUserId === post.author.id && (
+                  <DeleteAlertDialog
+                    isDeleting={isDeleting}
+                    onDelete={handleDeletePost}
+                  />
+                )}
               </div>
+              <p className="mt-2 text-sm text-foreground break-words">
+                {post.content}
+              </p>
             </div>
           </div>
         </div>
