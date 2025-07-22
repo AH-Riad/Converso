@@ -83,6 +83,17 @@ function PostCard({ post, dbUserId }: { post: Post; dbUserId: string | null }) {
                 ></AvatarImage>
               </Avatar>
             </Link>
+
+            {/*POST HEADER AND TEXT CONTENT */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-start justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate">
+                  <Link href={`/profile/${post.author.username}`}>
+                    @{post.author.name}
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </CardContent>
