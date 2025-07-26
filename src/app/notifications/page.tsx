@@ -29,3 +29,27 @@ const getNotificationIcon = (type: string) => {
       return null;
   }
 };
+
+function NotificationsPage() {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getNotifications();
+        setNotifications(data);
+
+        const unreadIds = data.filter((n) => !n.read).map((n) => n.id);
+        if (unreadIds.length > 0) await markNotificationsAsRead(unreadIds);
+      } catch (error) {
+        toast.error("Failed to fetch notifications");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
+}
