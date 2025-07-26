@@ -52,4 +52,7 @@ function NotificationsPage() {
 
     fetchNotifications();
   }, []);
+
+  if (isLoading) return <NotificationsSkeleton />;
 }
+export default NotificationsPage;
