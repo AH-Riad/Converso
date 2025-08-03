@@ -18,11 +18,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useState } from "react";
-import { useAuth, SignInButton, SignOutButton } from "@clerk/nextjs";
+import { useAuth, SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 
 function MobileNavbar() {
+  const { user } = useUser();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const { isSignedIn } = useAuth();
   const { theme, setTheme } = useTheme();
@@ -46,7 +47,7 @@ function MobileNavbar() {
             <MenuIcon className="h-5 w-5" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-[300px]">
+        <SheetContent side="right" className="w-[200px] p-2">
           <SheetHeader>
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
@@ -55,9 +56,13 @@ function MobileNavbar() {
               variant="ghost"
               className="flex items-center gap-3 justify-start"
               asChild
+              onClick={() => setShowMobileMenu(false)}
             >
               <Link href="/">
-                <HomeIcon className="w-4 h-4" />
+                <HomeIcon
+                  className="w-4 h-4"
+                  onClick={() => setShowMobileMenu(false)}
+                />
                 Home
               </Link>
             </Button>
@@ -68,9 +73,13 @@ function MobileNavbar() {
                   variant="ghost"
                   className="flex items-center gap-3 justify-start"
                   asChild
+                  onClick={() => setShowMobileMenu(false)}
                 >
                   <Link href="/notifications">
-                    <BellIcon className="w-4 h-4" />
+                    <BellIcon
+                      className="w-4 h-4"
+                      onClick={() => setShowMobileMenu(false)}
+                    />
                     Notifications
                   </Link>
                 </Button>
@@ -78,8 +87,15 @@ function MobileNavbar() {
                   variant="ghost"
                   className="flex items-center gap-3 justify-start"
                   asChild
+                  onClick={() => setShowMobileMenu(false)}
                 >
-                  <Link href="/profile">
+                  <Link
+                    href={`/profile/${
+                      user?.username ??
+                      user?.emailAddresses?.[0]?.emailAddress.split("@")[0]
+                    }`}
+                  >
+                    {" "}
                     <UserIcon className="w-4 h-4" />
                     Profile
                   </Link>
